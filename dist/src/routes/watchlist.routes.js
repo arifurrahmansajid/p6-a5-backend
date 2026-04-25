@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const watchlist_controller_1 = require("../controllers/watchlist.controller");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get("/", auth_1.requireAuth, watchlist_controller_1.listWatchlist);
+router.post("/:mediaId", auth_1.requireAuth, watchlist_controller_1.addToWatchlist);
+router.delete("/:mediaId", auth_1.requireAuth, watchlist_controller_1.removeFromWatchlist);
+exports.default = router;

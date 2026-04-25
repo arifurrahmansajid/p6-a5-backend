@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const client_1 = require("@prisma/client");
+const review_controller_1 = require("../controllers/review.controller");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get("/", review_controller_1.listPublishedReviews);
+router.post("/", auth_1.requireAuth, review_controller_1.createReview);
+router.patch("/:id", auth_1.requireAuth, review_controller_1.updateOwnPendingReview);
+router.delete("/:id", auth_1.requireAuth, review_controller_1.deleteOwnPendingReview);
+router.patch("/:id/moderate", auth_1.requireAuth, (0, auth_1.requireRole)(client_1.Role.ADMIN), review_controller_1.moderateReview);
+router.post("/:id/like", auth_1.requireAuth, review_controller_1.toggleLike);
+router.post("/:id/comments", auth_1.requireAuth, review_controller_1.addComment);
+exports.default = router;

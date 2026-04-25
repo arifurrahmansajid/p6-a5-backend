@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const client_1 = require("@prisma/client");
+const media_controller_1 = require("../controllers/media.controller");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.get("/", media_controller_1.listMedia);
+router.post("/", auth_1.requireAuth, (0, auth_1.requireRole)(client_1.Role.ADMIN), media_controller_1.createMedia);
+router.patch("/:id", auth_1.requireAuth, (0, auth_1.requireRole)(client_1.Role.ADMIN), media_controller_1.updateMedia);
+router.delete("/:id", auth_1.requireAuth, (0, auth_1.requireRole)(client_1.Role.ADMIN), media_controller_1.deleteMedia);
+exports.default = router;
