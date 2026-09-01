@@ -18,7 +18,7 @@ prisma/*.db-journal
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.gitignore
+branch_structure.json
 temp_auto_push.bat
 temp_interactive_push.bat
-branch_structure.json
-.gitignore
